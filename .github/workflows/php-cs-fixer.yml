@@ -10,10 +10,10 @@ jobs:
         run: |
           wget https://cs.symfony.com/download/php-cs-fixer-v2.phar -O php-cs-fixer
           chmod a+x php-cs-fixer
-          curl -L https://squizlabs.github.io/PHP_CodeSniffer/phpcs.phar -o /usr/local/bin/phpcs
-          curl -L https://squizlabs.github.io/PHP_CodeSniffer/phpcbf.phar -o /usr/local/bin/phpcbf
-          chmod +x /usr/local/bin/phpcs
-          chmod +x /usr/local/bin/phpcbf
+          curl -L https://squizlabs.github.io/PHP_CodeSniffer/phpcs.phar -o phpcs
+          curl -L https://squizlabs.github.io/PHP_CodeSniffer/phpcbf.phar -o phpcbf
+          chmod a+x phpcs
+          chmod a+x phpcbf
       - name: php-cs-fixer
         run: php php-cs-fixer fix ./src --dry-run
       - name: phpcs
