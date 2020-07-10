@@ -8,7 +8,7 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v1
       - name: phpcs
-        uses: geneccx/phpcs-reviewdog-action@v1
+        uses: geneccx/phpcs-reviewdog-action@v0.1-alpha
         with:
           github_token: ${{ secrets.github_token }}
           phpcs_args: "--standard=PSR12 ./src"
