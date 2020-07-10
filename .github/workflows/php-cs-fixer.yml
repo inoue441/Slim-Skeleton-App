@@ -14,7 +14,7 @@ jobs:
           curl -L https://squizlabs.github.io/PHP_CodeSniffer/phpcbf.phar -o phpcbf
           chmod a+x phpcs
           chmod a+x phpcbf
-      - name: php-cs-fixer
-        run: php php-cs-fixer fix ./src --dry-run
       - name: phpcs
         run: phpcs --standard=PSR12 ./src
+      - name: php-cs-fixer
+        run: php php-cs-fixer fix ./src --dry-run
