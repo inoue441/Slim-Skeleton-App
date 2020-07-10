@@ -11,7 +11,7 @@ jobs:
         uses: geneccx/phpcs-reviewdog-action@v1
         with:
           github_token: ${{ secrets.github_token }}
-          phpcs_args: "--standard=PSR12"
+          phpcs_args: "--standard=PSR12 ./src"
           reporter: github-pr-review # Default is github-pr-check
       # ...
 #      - name: Setup reviewdog
