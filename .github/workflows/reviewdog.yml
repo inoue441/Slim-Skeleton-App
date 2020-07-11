@@ -33,6 +33,7 @@ jobs:
             > /dev/null 2>&1
           cat ${checkstyle} | reviewdog -f=checkstyle -reporter="github-pr-review" > /dev/null 2>&1
       - name: Run phpcs
+        if: always()
         run: |
           phpcs --standard=PSR12 --report=summary \
             $(git diff --diff-filter=AM --name-only origin/${GITHUB_BASE_REF}..origin/${GITHUB_HEAD_REF} | grep "\.php$") \
