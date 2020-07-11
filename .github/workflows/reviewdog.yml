@@ -33,7 +33,6 @@ jobs:
             $(git diff --diff-filter=AM --name-only origin/${GITHUB_BASE_REF}..origin/${GITHUB_HEAD_REF} | grep "\.php$") \
             | 2>&1 > ${exit_code}
           cat ${checkstyle} | reviewdog -f=checkstyle -diff="git diff master" -reporter="github-pr-review"
-          cat ${exit_code}
       - name: Run phpcs
         if: always()
         run: |
