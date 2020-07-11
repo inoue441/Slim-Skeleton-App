@@ -32,7 +32,7 @@ jobs:
             --runtime-set ignore_errors_on_exit 1 \
             --runtime-set ignore_warnings_on_exit 1 \
             $(git diff --diff-filter=AM --name-only origin/${GITHUB_BASE_REF}..origin/${GITHUB_HEAD_REF} | grep "\.php$")
-          cat ${checkstyle} | reviewdog -f=checkstyle -diff="git diff master" -reporter="github-pr-review"
+          cat ${checkstyle} | reviewdog -f=checkstyle -reporter="github-pr-review"
       - name: Run phpcs
         if: always()
         run: |
