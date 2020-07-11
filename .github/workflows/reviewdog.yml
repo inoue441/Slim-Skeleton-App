@@ -28,9 +28,13 @@ jobs:
           REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           checkstyle=$HOME/report_checkstyle.xml
+          exit_code=$HOME/exit_code
           phpcs --standard=PSR12 --report-checkstyle=${checkstyle} \
-            $(git diff --diff-filter=AM --name-only origin/${GITHUB_BASE_REF}..origin/${GITHUB_HEAD_REF} | grep "\.php$")
+            $(git diff --diff-filter=AM --name-only origin/${GITHUB_BASE_REF}..origin/${GITHUB_HEAD_REF} | grep "\.php$") \
+            | 2>&1 > ${exit_code}
+          head ${checkstyle}
           cat ${checkstyle} | reviewdog -f=checkstyle -diff="git diff master" -reporter="github-pr-review"
+          cat ${exit_code}
       - name: Run phpcs
         if: always()
         run: |
