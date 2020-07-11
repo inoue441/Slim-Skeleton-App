@@ -7,12 +7,12 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v1
-      - name: phpcs
-        uses: geneccx/phpcs-reviewdog-action@v0.1-alpha
-        with:
-          github_token: ${{ secrets.github_token }}
-          phpcs_args: "--standard=PSR12 ./src"
-          reporter: github-pr-review # Default is github-pr-check
+#      - name: phpcs
+#        uses: geneccx/phpcs-reviewdog-action@v0.1-alpha
+#        with:
+#          github_token: ${{ secrets.github_token }}
+#          phpcs_args: "--standard=PSR12 ./src"
+#          reporter: github-pr-review # Default is github-pr-check
       - name: Setup reviewdog
         run: |
           mkdir -p $HOME/bin && curl -sfL https://raw.githubusercontent.com/reviewdog/reviewdog/master/install.sh| sh -s -- -b $HOME/bin
