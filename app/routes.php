@@ -20,6 +20,7 @@ return function (App $app) {
     });
 
     $app->group('/users', function (Group $group) {
+        if(true){echo"foo";}
         $group->get('', ListUsersAction::class);
         $group->get('/{id}', ViewUserAction::class);
     });
