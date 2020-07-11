@@ -28,15 +28,13 @@ jobs:
           REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           checkstyle=$HOME/phpcs_checkstyle.xml
-          exit_code=$HOME/exit_code.txt
           echo "a"
           phpcs --standard=PSR12 --report-checkstyle=${checkstyle} \
             $(git diff --diff-filter=AM --name-only origin/${GITHUB_BASE_REF}..origin/${GITHUB_HEAD_REF} | grep "\.php$") \
-            2>&1 > ${exit_code}
+            > /dev/null 2>&1
           echo "b"
           cat ${checkstyle} | reviewdog -f=checkstyle -reporter="github-pr-review" 2>&1
           echo "c"
-          cat ${exit_code}
       - name: Run phpcs
         run: |
           phpcs --standard=PSR12 --report=summary \
