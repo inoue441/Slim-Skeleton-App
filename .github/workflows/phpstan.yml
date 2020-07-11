@@ -16,4 +16,4 @@ jobs:
           composer global require phpstan/phpstan
       - name: Run phpstan
         run: |
-          vendor/bin/phpstan analyse ./app ./src
+          $HOME/.composer/vendor/bin/phpstan analyse ./app ./src
