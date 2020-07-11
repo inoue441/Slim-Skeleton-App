@@ -32,7 +32,7 @@ jobs:
           phpcs --standard=PSR12 --report-checkstyle=${checkstyle} \
             $(git diff --diff-filter=AM --name-only origin/${GITHUB_BASE_REF}..origin/${GITHUB_HEAD_REF} | grep "\.php$") \
             | 2>&1 > ${exit_code}
-          < ${checkstyle} | reviewdog -f=checkstyle -diff="git diff master" -reporter="github-pr-review"
+          cat ${checkstyle} | reviewdog -f=checkstyle -diff="git diff master" -reporter="github-pr-review" > /dev/null 2>&1
           cat ${exit_code}
 #     - name: Run reviewdog
 #       env:
