@@ -29,15 +29,15 @@ jobs:
         run: |
           checkstyle=$HOME/phpcs_checkstyle.xml
           exit_code=$HOME/exit_code.txt
-          echo 1
+          echo "a"
           phpcs --standard=PSR12 --report-checkstyle=${checkstyle} \
             $(git diff --diff-filter=AM --name-only origin/${GITHUB_BASE_REF}..origin/${GITHUB_HEAD_REF} | grep "\.php$") \
             2>&1 > ${exit_code}
-          echo 2
+          echo "b"
           cat ${exit_code}
-          echo 3
+          echo "c"
           cat ${checkstyle} | reviewdog -f=checkstyle -reporter="github-pr-review" 2>&1
-          echo 4
+          echo "d"
           cat ${exit_code}
 #     - name: Run reviewdog
 #       env:
