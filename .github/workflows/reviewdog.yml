@@ -20,7 +20,6 @@ jobs:
           php composer-setup.php
           php -r "unlink('composer-setup.php');"
           mv composer.phar $HOME/bin/composer
-          chmod +x composer
           composer global require phpstan/phpstan
           echo ::add-path::$HOME/.composer/vendor/bin
       - name: Check out code
