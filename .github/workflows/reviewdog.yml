@@ -13,11 +13,30 @@ jobs:
         run: |
           curl -L https://squizlabs.github.io/PHP_CodeSniffer/phpcs.phar -o $HOME/bin/phpcs
           chmod +x $HOME/bin/phpcs
+      - name: Setup phpstan
+        run: |
+          php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+          php -r "if (hash_file('sha384', 'composer-setup.php') === 'e5325b19b381bfd88ce90a5ddb7823406b2a38cff6bb704b0acc289a09c8128d4a8ce2bbafcd1fcbdc38666422fe2806') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
+          php composer-setup.php
+          php -r "unlink('composer-setup.php');"
+          mv composer.phar $HOME/bin/composer
+          composer global require phpstan/phpstan
+          echo ::add-path::$HOME/.composer/vendor/bin
       - name: Check out code
         uses: actions/checkout@master
         with:
           fetch-depth: 0
-      - name: Run reviewdog
+      - name: Run reviewdog with phpstan
+        env:
+          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          phpstan analyse \
+            --level=5 \
+            --error-format=raw \
+            --no-progress \
+            ./app ./src \
+            | reviewdog -f=phpstan -reporter="github-pr-review"
+      - name: Run reviewdog with phpcs
         env:
           REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
