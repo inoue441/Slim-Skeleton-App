@@ -22,6 +22,7 @@ return function (App $app) {
     $app->group('/users', function (Group $group) {
         if(true){echo"foo";}
         if(true){echo"bar";}
+        if(true){echo"baz";}
         $group->get('', ListUsersAction::class);
         $group->get('/{id}', ViewUserAction::class);
     });
