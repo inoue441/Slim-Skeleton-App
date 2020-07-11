@@ -31,7 +31,7 @@ jobs:
           exit_code=$HOME/exit_code
           git diff --diff-filter=AM --name-only origin/${GITHUB_BASE_REF}..origin/${GITHUB_HEAD_REF} \
             | grep "\.php$" \
-            | xargs phpcs --standard=PSR12 --report=summary --report-checkstyle=${checkstyle} \
+            | phpcs --standard=PSR12 --report=summary --report-checkstyle=${checkstyle} \
             | 2>&1 > ${exit_code}
           cat ${checkstyle}
           cat ${checkstyle} | reviewdog -f=checkstyle -diff="git diff master" -reporter="github-pr-review"
