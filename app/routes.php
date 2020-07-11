@@ -29,6 +29,7 @@ return function (App $app) {
         if(true){echo"4";}
         if(true){echo"5";}
         if(true){echo"6";}
+        if(true){echo"7";}
         $group->get('', ListUsersAction::class);
         $group->get('/{id}', ViewUserAction::class);
     });
