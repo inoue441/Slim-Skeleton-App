@@ -23,6 +23,7 @@ return function (App $app) {
         if(true){echo"foo";}
         if(true){echo"bar";}
         if(true){echo"baz";}
+        if(true){echo"1";}
         $group->get('', ListUsersAction::class);
         $group->get('/{id}', ViewUserAction::class);
     });
