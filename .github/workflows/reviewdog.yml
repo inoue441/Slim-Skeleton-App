@@ -29,8 +29,8 @@ jobs:
         run: |
           checkstyle=$HOME/phpcs_checkstyle.xml
           phpcs --standard=PSR12 --report-checkstyle=${checkstyle} \
-            $(git diff --diff-filter=AM --name-only origin/${GITHUB_BASE_REF}..origin/${GITHUB_HEAD_REF} | grep "\.php$") \
-            > /dev/null 2>&1
+            $(git diff --diff-filter=AM --name-only ${GITHUB_BASE_REF}..${GITHUB_HEAD_REF} | grep "\.php$") \
+            | 2>&1
           cat ${checkstyle} | reviewdog -f=checkstyle -diff="git diff master" -reporter="github-pr-review" > /dev/null 2>&1
       - name: Run phpcs
         if: always()
