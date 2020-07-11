@@ -5,8 +5,6 @@ jobs:
     name: reviewdog
     runs-on: ubuntu-latest
     steps:
-      - name: Check out code
-        uses: actions/checkout@v1
 #      - name: phpcs
 #        uses: geneccx/phpcs-reviewdog-action@v0.1-alpha
 #        with:
@@ -21,12 +19,17 @@ jobs:
         run: |
           curl -L https://squizlabs.github.io/PHP_CodeSniffer/phpcs.phar -o $HOME/bin/phpcs
           chmod +x $HOME/bin/phpcs
+      - name: Check out code
+        uses: actions/checkout@master
+        with:
+          fetch-depth: 0
       - name: Run reviewdog
         env:
           REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           checkstyle=$HOME/phpcs_checkstyle.xml
-          git diff --name-only master...HEAD | grep "\.php$" | xargs phpcs --standard=PSR12 --report=summary --report-checkstyle=${checkstyle}
+          git diff --diff-filter=AM --name-only origin${GITHUB_BASE_REF}..origin${GITHUB_HEAD_REF} \
+            | grep "\.php$" | xargs phpcs --standard=PSR12 --report=summary --report-checkstyle=${checkstyle}
           cat ${checkstyle} | reviewdog -f=checkstyle -diff="git diff master" -reporter="{github-pr-review}"
 #     - name: Run reviewdog
 #       env:
