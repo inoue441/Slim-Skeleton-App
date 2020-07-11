@@ -36,7 +36,7 @@ jobs:
             | xargs phpcs --standard=PSR12 --report=summary --report-checkstyle=${checkstyle} \
             | 2>&1 > ${exit_code}
           echo 3
-          cat ${checkstyle} | reviewdog -f=checkstyle -diff="git diff master" -reporter="{github-pr-review}"
+          cat ${checkstyle} | reviewdog -f=checkstyle -diff="git diff master" -reporter="github-pr-review"
           echo 4
           cat ${exit_code}
 #     - name: Run reviewdog
