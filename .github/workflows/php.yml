@@ -3,7 +3,6 @@ on: [pull_request]
 
 jobs:
   syntax_check:
-    name: Syntax check
     runs-on: ubuntu-latest
     steps:
       - name: Check out code
