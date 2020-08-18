@@ -8,6 +8,8 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
       - name: Run syntax check
         run: |
           git diff --diff-filter=AM --name-only origin/${GITHUB_BASE_REF}..origin/${GITHUB_HEAD_REF} \
