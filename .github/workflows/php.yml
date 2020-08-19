@@ -13,6 +13,9 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: '5.6'
+      - name: PHP version
+        run: |
+          php --version
       - name: Run syntax check
         run: |
           git diff --diff-filter=AM --name-only origin/${GITHUB_BASE_REF}..origin/${GITHUB_HEAD_REF} \
