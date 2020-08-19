@@ -1,0 +1,23 @@
+name: php
+on: [pull_request]
+
+jobs:
+  syntax_check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '5.6'
+      - name: PHP version
+        run: |
+          php --version
+      - name: Run syntax check
+        run: |
+          git diff --diff-filter=AM --name-only origin/${GITHUB_BASE_REF}..origin/${GITHUB_HEAD_REF} \
+            | grep "\.php$" \
+            | xargs -n 1 php -l
